@@ -1,11 +1,21 @@
-# starter-express-api
+# dev-connect
 
-This is the simplest possible nodejs api using express that responds to any request with: 
+Error Codes:
 ```
-Yo!
+403 - TO many requests
+450 - Requested Data Not Found
+455 - Duplicates
 ```
 
-### Deploy it in 7 seconds: 
+# updateOne response schema
+{
+  "acknowledged": true,
+  "modifiedCount": 1,
+  "upsertedId": null,
+  "upsertedCount": 0,
+  "matchedCount": 1
+}
 
-[![Deploy to Cyclic](https://deploy.cyclic.app/button.svg)](https://deploy.cyclic.app/)
 
+
+``` for frontend use --legacy-peer-deps ```
