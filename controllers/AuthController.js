@@ -10,6 +10,7 @@ export const login = async (req,res) => {
         });
     let tk = null;
     const TOKEN = process.env.ACCESS_TOKEN || "access_token";
+    let USERDATA = null;
 
     if(data == null)
         res.status(419);
@@ -20,9 +21,19 @@ export const login = async (req,res) => {
             { expiresIn: "10h" }
         );
     
-    data.password = undefined
-    data.token = tk
-    res.send(data);
+    USERDATA = {
+        first_name: data.first_name, 
+        last_name: data.last_name, 
+        email: data.email,
+        token: tk,
+        location: data.location,
+        profile_img: data.img,
+        interest: data.interest,
+        projects: data.projects,
+        tech: data.tech,
+        location: data.location
+    }
+    res.send(USERDATA);
 }
 
 export const register = async (req,res) => {
