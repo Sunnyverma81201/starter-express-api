@@ -161,14 +161,14 @@ const profilePhotoUpload = async (req,res) => {
 
 export const updateInterest = async (req, res) => {
     
-    await User.findByIdAndUpdate(req.body.id, { $addToSet: { interests: req.body.project }  },{upsert: true, new: true} );
+    await User.findByIdAndUpdate(req.body.id, { $addToSet: { interest: req.body.project }  },{upsert: true, new: true} );
 
     req.body.tech.forEach((item) => {
         showInterest(req.body.id,item);
     });
  
     res.send();
-}
+}   
 
 const showInterest = async (user,tech) => {
 
@@ -179,6 +179,13 @@ const showInterest = async (user,tech) => {
   
     await usr.save();
 
+}
+
+export const addInterest = async (req,res) => {
+    req.body.tech.forEach((item) => {
+        showInterest(req.body.id,item);
+    });
+    res.send();
 }
 
 const noInterest = async (user,tech) => {

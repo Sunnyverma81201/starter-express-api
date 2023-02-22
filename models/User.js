@@ -10,14 +10,14 @@ const User = mongoose.model('User', new mongoose.Schema(
         password: { type: String, required: true },
         img: { type:mongoose.Schema.Types.ObjectId, ref:'File', default: null},
         projects:[ { type:mongoose.Schema.Types.ObjectId, ref:'Project'  } ],
-        interests: [ { type:mongoose.Schema.Types.ObjectId, ref:'Project' } ],
+        interest: [ { type:mongoose.Schema.Types.ObjectId, ref:'Project' } ],
         tech: [ { name:String , score:Number } ],
-        location: 'string'
+        location: {  type: String, required: false}
     },
     { timestamps: true }
 ),"users");
 
-let u = await User.findOne({  email: 'admin@gmail.com' });
+let u = await User.findOne({ email: 'admin@gmail.com' });
 if(!u)
 await User.create({ first_name: 'admin', last_name:"user", email: 'admin@gmail.com', password:crypto.createHash('sha256').update(`Dev-Connect-admin`).digest('hex') });
 

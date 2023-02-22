@@ -18,7 +18,7 @@ export const login = async (req,res) => {
         tk = jwt.sign(
             { id: data._id, email: data.email },
             TOKEN,
-            { expiresIn: "2h" }
+            { expiresIn: "10h" }
         );
     
     USERDATA = {
@@ -34,11 +34,21 @@ export const login = async (req,res) => {
 
 export const register = async (req,res) => {
 
-    await User.create({ 
+    console.log({ 
         first_name: req.body.first_name, 
         last_name:req.body.last_name, 
         email: req.body.email, 
         password:crypto.createHash('sha256').update(`Dev-Connect-${req.body.password}`).digest('hex') 
+    })
+    await User.create({ 
+        first_name: req.body.first_name, 
+        last_name:req.body.last_name, 
+        email: req.body.email, 
+        password:crypto.createHash('sha256').update(`Dev-Connect-${req.body.password}`).digest('hex'),
+        // location: null,
+        // tech: [],
+        // projects:[ ],
+        interest: [  ],
     }).then( data => {
         delete data.password;
         res.send(data);
