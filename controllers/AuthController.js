@@ -31,7 +31,9 @@ export const login = async (req,res) => {
         interest: data.interest,
         projects: data.projects,
         tech: data.tech,
-        location: data.location
+        location: data.location,
+        createdAt: data.createdAt,
+        updatedAt: data.createdAt
     }
     res.send(USERDATA);
 }
