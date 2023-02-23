@@ -17,7 +17,7 @@ export const updateProfile = async (req,res) => {
         { _id: req.body.id },
         {  first_name: req.body.first_name, last_name: req.body.last_name, location: req.body.location }
     );
-    let data = await User.findById(req.body.id);
+    let data = await User.findById(req.body.id).exec();
     res.send(data);
 }
 
@@ -98,8 +98,8 @@ export const updateProject = async (req,res) => {
 }
 
 export const projectInvite = async (req,res) => {
-    let user = await User.findById(req.body.userId);
-    let project = await Project.findById(req.body.projectId);
+    let user = await User.findById(req.body.userId).exec();
+    let project = await Project.findById(req.body.projectId).exec();
 
     if(user == null || project == null){
         res.status(450).send();
@@ -198,4 +198,10 @@ const noInterest = async (user,tech) => {
     // else{
     //     await Interest.create({ name: tech, user: user, project: project, score: 0 });
     // }
+}
+
+export const getUser = async (req,res) => {
+
+    const user = await User.findById(req.body.id,"-password").exec()
+    res.send(user)
 }

@@ -25,27 +25,13 @@ export const login = async (req,res) => {
         first_name: data.first_name, 
         last_name: data.last_name, 
         email: data.email,
-        token: tk,
-        location: data.location,
-        profile_img: data.img,
-        interest: data.interest,
-        projects: data.projects,
-        tech: data.tech,
-        location: data.location,
-        createdAt: data.createdAt,
-        updatedAt: data.createdAt
+        token: tk
     }
     res.send(USERDATA);
 }
 
 export const register = async (req,res) => {
 
-    console.log({ 
-        first_name: req.body.first_name, 
-        last_name:req.body.last_name, 
-        email: req.body.email, 
-        password:crypto.createHash('sha256').update(`Dev-Connect-${req.body.password}`).digest('hex') 
-    })
     await User.create({ 
         first_name: req.body.first_name, 
         last_name:req.body.last_name, 
@@ -56,8 +42,7 @@ export const register = async (req,res) => {
         // projects:[ ],
         interest: [  ],
     }).then( data => {
-        delete data.password;
-        res.send(data);
+        res.send();
     })
     .catch( err => {
         if(err.code == 11000)
