@@ -66,8 +66,8 @@ userRoute.post('/getCreatedPrjects', getCreatedPrjects);
 userRoute.post('/deleteProject',  deleteProject);
 userRoute.post('/updateProject',  updateProject);
 userRoute.post('/projectInvite',  projectInvite);
-userRoute.post('/acceptProjectInvite',  acceptProjectInvite);
-userRoute.post('/showInterest',  addInterest);
-userRoute.post('/getUser',  getUser);
+userRoute.post('/acceptProjectInvite', acceptProjectInvite);
+userRoute.post('/showInterest', addInterest);
+userRoute.get('/getUser', getUser);
 
 export default userRoute;
