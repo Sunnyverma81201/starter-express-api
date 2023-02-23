@@ -4,7 +4,7 @@ import mongoose from "../database/MongoConnect.js";
 const Project = mongoose.model('Project', new mongoose.Schema(
     { 
         name: { type: String, required: true }, 
-        tech: { type: Array, default: [] },
+        tech: [ { type:mongoose.Schema.Types.ObjectId, ref:'Interest' } ],
         owner: { type:mongoose.Schema.Types.ObjectId, ref:'User' },
         users:[ { type:mongoose.Schema.Types.ObjectId, ref:'User' } ],
         duration: 'string',

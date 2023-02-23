@@ -25,7 +25,7 @@ import { deleteForgetPassword } from './controllers/crons/Crons.js';
 
 
 //initialize express ====================================
-const PORT = process.env.APP_PORT || 5000;
+const PORT = process.env.APP_PORT || 5555;
 const app = express();
 //=======================================================
 

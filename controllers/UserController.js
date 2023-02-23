@@ -1,9 +1,11 @@
 import InviteUser from "../models/InviteUser.js";
 import Project from "../models/Project.js";
+import Interest from "../models/Interest.js";
 import User from "../models/User.js";
 import File from "../models/File.js";
 import path from "path";
 import fs from "fs";
+import { kmeans } from "./ML/K-means.js"
 
 export const dashboard = async (req,res) => {
 
@@ -204,4 +206,60 @@ export const getUser = async (req,res) => {
 
     const user = await User.findById(req.body.id,"-password").exec()
     res.send(user)
+}
+
+export const recommandUser = async (req,res) => {
+
+    const shuffle = (array) =>  {
+        let currentIndex = array.length,  randomIndex;
+        while (currentIndex != 0) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex--;
+          [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+        return array;
+    }
+    
+    const intersts = await Interest.find();
+    const users = await User.findById(req.body.id).populate("interest");
+    let usr = await User.find();
+    // usr = shuffle(users)
+  
+
+
+    let i = 1, j = 0
+    const interestIds = intersts.map(item => { return { id: i++, slug: item.slug } })
+    i = 1
+    let userIds = []
+    let newUsr = []
+    users.interest.forEach(async ele => {
+       
+        let u = await User.findById(ele.owner).exec()
+        userIds.push( { id: i++, _id: u.email })
+        newUsr.push( { id: i++, _id: usr[j++].email })
+           
+    })
+
+    const projects = await Project.find().populate("tech").populate("owner");
+    const dataItems = []
+    i = 0
+    console.log(newUsr);
+    projects.forEach(ele => {
+
+        ele.tech.map(ele1 => {
+
+            let sids = interestIds.filter(item => ele1.slug == item.slug)
+            let uids = userIds.filter(item => ele.owner.email == item._id)
+            dataItems.push([sids[0].id,uids[0].id])
+            dataItems.push([sids[0].id,newUsr[i].id])
+        })
+        // i++;
+    })
+
+    console.log(dataItems);
+
+    const clusterCount = Math.floor((projects.length)/5);
+    let km = kmeans(dataItems,clusterCount)
+    res.send(km)
 }
