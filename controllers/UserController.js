@@ -217,7 +217,6 @@ export const recommandUser = async (req,res) => {
     const intersts = await Interest.find();
     const users = await User.findById(req.body.id).populate("interest");
     let usr = await User.find();
-    // usr = shuffle(users)
 
     let i = 1, j = 0
     const interestIds = intersts.map(item => { return { id: i++, slug: item.slug } })
@@ -226,8 +225,8 @@ export const recommandUser = async (req,res) => {
     let newUsr = []
     users.interest.forEach(async ele => {
         let u = await User.findById(ele.owner).exec()
-        userIds.push( { id: i++, _id: u.email })
-        newUsr.push( { id: i++, _id: usr[shuffle(usr.length)].email })
+        userIds.push({ id: i++, _id: u.email })
+        newUsr.push({ id: i++, _id: usr[shuffle(usr.length)].email })
     })
 
     const projects = await Project.find().populate("tech").populate("owner");
@@ -246,12 +245,30 @@ export const recommandUser = async (req,res) => {
     const clusterCount = Math.floor((projects.length)/5);
     let km = kmeans(dataItems,clusterCount)
 
-    let usersIds = []
-    let skillsIds = []
+    let findUsers = []
+    let findSkills = []
     km.mean.forEach(item => {
-        skillsIds.push(Math.round(item[0]))
-        usersIds.push(Math.round(item[1]))
+
+        let tempData1 = interestIds.filter(item1 => Math.round(item[0]) == item1.id)
+        !findSkills.includes(tempData1[0].slug) ? findSkills.push(tempData1[0].slug) : console.log("skill exists");
+
+        let tempData2 = userIds.filter(item1 => Math.round(item[1]) == item1.id)
+        tempData2.push(...newUsr.filter(item1 => Math.round(item[1]) == item1.id))
+
+        !findUsers.includes(tempData2[0]._id) ? findUsers.push(tempData2[0]._id) : console.log("user exists");
+        !findUsers.includes(tempData2[0]._id) ? findUsers.push(tempData2[0]._id) : console.log("user exists");
     })
 
-    res.send(usersIds)
+
+    let final = []
+
+    projects.forEach(item => {
+
+        let temp = item.tech.filter(ele =>  { return  findSkills.includes(ele.slug)})
+        if(findUsers.includes(item.owner.email) && temp.length > 0){
+            final.push(item)
+        }
+    })
+
+    res.send(final)
 }
