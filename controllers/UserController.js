@@ -80,7 +80,7 @@ export const createProject = async(req,res) => {
 }
 
 export const getCreatedPrjects = async(req,res) => {
-    let data = await Project.find({owner: req.body.id });
+    let data = await Project.find({owner: req.body.id }).populate(['tech','users']);
     res.send(data)
 }
 
