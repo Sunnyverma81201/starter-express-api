@@ -62,7 +62,7 @@ userRoute.post('/createProject',  createProject);
 userRoute.post('/getTech',  getTech);
 userRoute.get('/projects/:page',  projects);
 userRoute.post('/updateInterest',  updateInterest);
-userRoute.post('/getCreatedPrjects', getCreatedPrjects);
+userRoute.get('/getCreatedPrjects', getCreatedPrjects);
 userRoute.post('/deleteProject',  deleteProject);
 userRoute.post('/updateProject',  updateProject);
 userRoute.post('/projectInvite',  projectInvite);
