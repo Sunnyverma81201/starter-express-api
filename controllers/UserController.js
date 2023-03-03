@@ -39,11 +39,11 @@ export const projects = async (req,res) => {
     let page = req.params?.page || 1
 
 
-    let det = await User.findById(req.body.id).populate("interests");
+    // let det = await User.findById(req.body.id).populate("interests");
 
-    if(det.interests.tech){
+    // if(det.interests.tech){
 
-    }
+    // }
 
     let data = await Project.find().where('owner').ne(req.body.id).where('users').ne(req.body.id).sort([['createdAt', -1]]).skip((page-1)*10).limit(10).populate("owner");
     //     let data = await Project.find().where('owner').ne(req.body.id).where('users').ne(req.body.id).sort([['createdAt', -1]]).skip((page-1)*10).limit(10).populate("owner").populate('interests').catch(err => {
