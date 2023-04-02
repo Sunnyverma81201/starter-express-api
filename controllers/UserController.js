@@ -177,7 +177,7 @@ const showInterest = async (user,tech) => {
     let usr = await User.findById(user);
     let temp = usr.tech.find((item) => { if(item.name == tech.name) { item.score++; return true }  })
 
-    if(!temp) usr.tech.push({name: tech, score: 1});
+    if(!temp) usr.tech.push({name: tech.name, score: 1});
   
     await usr.save();
 
