@@ -175,7 +175,7 @@ export const updateInterest = async (req, res) => {
 const showInterest = async (user,tech) => {
 
     let usr = await User.findById(user);
-    let temp = usr.tech.find((item) => { if(item.name == tech) { item.score++; return true }  })
+    let temp = usr.tech.find((item) => { if(item.name == tech.name) { item.score++; return true }  })
 
     if(!temp) usr.tech.push({name: tech, score: 1});
   
