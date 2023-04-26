@@ -205,6 +205,7 @@ const noInterest = async (user,tech) => {
 export const getUser = async (req,res) => {
 
     const user = await User.findById(req.body.id,"-password").populate('img').exec()
+    console.log(user)
     res.send(user)
 }
 
