@@ -15,6 +15,7 @@ const app = express()
       }
       catch(e){
         res.status(419).send(e)
+        return;
       }
     }
     res.status(419)
