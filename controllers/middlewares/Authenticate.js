@@ -14,8 +14,8 @@ const app = express()
         return;
       }
       catch(e){
-//        res.status(419).send(e)
-//        return;
+        res.status(419).send(e)
+        return;
       }
     }
     res.status(419)
