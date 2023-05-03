@@ -45,7 +45,7 @@ export const projects = async (req,res) => {
 
     // }
 
-    let data = await Project.find().where('owner').ne(req.body.id).where('users').ne(req.body.id).sort([['createdAt', -1]]).skip((page-1)*10).limit(10).populate("owner");
+    let data = await Project.find().where('owner').ne(req.body.id).where('users').ne(req.body.id).sort([['createdAt', -1]]).skip((page-1)*10).limit(10).populate(['tech','users','owner']);
     //     let data = await Project.find().where('owner').ne(req.body.id).where('users').ne(req.body.id).sort([['createdAt', -1]]).skip((page-1)*10).limit(10).populate("owner").populate('interests').catch(err => {
     //     res.send(err)
     //     console.log(err);
@@ -80,7 +80,7 @@ export const createProject = async(req,res) => {
 }
 
 export const getCreatedPrjects = async(req,res) => {
-    let data = await Project.find({owner: req.body.id }).populate(['tech','users']);
+    let data = await Project.find({owner: req.body.id }).populate(['tech','users','owner']);
     res.send(data)
 }
 
