@@ -37,7 +37,7 @@ export const changePassword = async (req,res) => {
 export const projects = async (req,res) => {
 
     let page = req.params?.page || 1
-œ
+
 
     // let det = await User.findById(req.body.id).populate("interests");
 
