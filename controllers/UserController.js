@@ -37,7 +37,7 @@ export const changePassword = async (req,res) => {
 export const projects = async (req,res) => {
 
     let page = req.params?.page || 1
-
+œ
 
     // let det = await User.findById(req.body.id).populate("interests");
 
@@ -238,7 +238,7 @@ export const recommandUser = async (req,res) => {
         ele.tech.map(ele1 => {
             let sids = interestIds.filter(item => ele1.slug == item.slug)
             let uids = userIds.filter(item => ele.owner.email == item._id)
-            dataItems.push([sids[0].id,uids[0].id])
+            dataItems.push([sids[0],uids[0]])
             if(newUsr[i]?.id)  dataItems.push([sids[0].id,newUsr[i++].id])
         })
     })
