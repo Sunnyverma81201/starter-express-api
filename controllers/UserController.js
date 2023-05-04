@@ -120,8 +120,8 @@ export const acceptProjectInvite = async (req,res) => {
     if(data == null)
         res.status(450);
     else{
-        await Project.findByIdAndUpdate(data.project, { $push: { users: data.user }  });
-        await User.findByIdAndUpdate(data.user, { $push: { projects: data.project }  });
+        await Project.findByIdAndUpdate(data.project, { $push: { users: req.body.userId }  });
+        await User.findByIdAndUpdate(req.body.userId, { $push: { projects: data.project }  });
     }
     res.send();
 }
