@@ -115,7 +115,7 @@ export const projectInvite = async (req,res) => {
 }
 
 export const acceptProjectInvite = async (req,res) => {
-    let data = await InviteUser.findById({user: req.body.userId});
+    let data = await InviteUser.find({user: req.body.userId});
 
     if(data == null)
         res.status(450);
