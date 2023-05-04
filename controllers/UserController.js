@@ -131,7 +131,10 @@ export const showProjectInvites = async (req,res) => {
 }
 
 export const getUserInterests = async (req,res) => {
-    let data = await User.findById(req.body.id,"interest").populate('interest').populate('tech');
+    let data = await User.findById(req.body.id,"interest").populate('interest');
+
+    let data1 = await Project.find({_id: data.map(item => item.id)}).populate('tech');
+    
     res.send(data);
 }
 
