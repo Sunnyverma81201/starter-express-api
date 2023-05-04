@@ -6,6 +6,7 @@ import File from "../models/File.js";
 import path from "path";
 import fs from "fs";
 import { kmeans } from "./ML/K-means.js"
+import { log } from "console";
 
 export const dashboard = async (req,res) => {
 
@@ -127,7 +128,9 @@ export const acceptProjectInvite = async (req,res) => {
 
 export const showProjectInvites = async (req,res) => {
     let data = await InviteUser.find({ project: req.body.projectId }).populate('user').exec();
-    res.send(data);
+    console.log(data);
+    let data1 = await User.find().where('_id').in(data.map(item => item.user.id)).populate(['interest','projects'])
+    res.send(data1);
 }
 
 export const getUserInterests = async (req,res) => {
