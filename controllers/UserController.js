@@ -125,6 +125,16 @@ export const acceptProjectInvite = async (req,res) => {
     res.send();
 }
 
+export const showProjectInvites = async (req,res) => {
+    let data = await InviteUser.find({ project: req.body.projectId }).populate('user').exec();
+    res.send(data);
+}
+
+export const getUserInterests = async (req,res) => {
+    let data = await User.findById(req.body.id,"interest");
+    res.send(data);
+}
+
 export const fileUpload = async (req,res) => {
 
     switch(req.params.type){
