@@ -70,6 +70,6 @@ userRoute.post('/showInterest', addInterest);
 userRoute.get('/getUser', getUser);
 userRoute.get('/recommandUser', recommandUser);
 userRoute.get('/getFavProjects', getUserInterests);
-userRoute.get('/showProjectInvites', showProjectInvites);
+userRoute.post('/showProjectInvites', showProjectInvites);
 
 export default userRoute;
