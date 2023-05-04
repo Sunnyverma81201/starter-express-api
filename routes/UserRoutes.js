@@ -6,7 +6,7 @@ import multer from "multer";
 import path from "path";
 import jwt from "jsonwebtoken";
 
-import { acceptProjectInvite, createProject, dashboard, getCreatedPrjects ,deleteProject, fileUpload, getTech, projectInvite, projects, updateProfile, updateProject, updateInterest, addInterest, getUser, recommandUser } from "../controllers/UserController.js";
+import { acceptProjectInvite, createProject, dashboard, getCreatedPrjects ,deleteProject, fileUpload, getTech, projectInvite, projects, updateProfile, updateProject, updateInterest, addInterest, getUser, recommandUser, getFavProjects } from "../controllers/UserController.js";
 
 const userRoute = express.Router();
 
@@ -53,7 +53,6 @@ const filterFile = multer({
 })
 
 //paths
-
 userRoute.post('/dashboard',  dashboard);
 userRoute.post('/upload/:type', filterFile.single("userFiles"), fileUpload);
 userRoute.post('/updateProfile',  updateProfile);
@@ -70,5 +69,6 @@ userRoute.post('/acceptProjectInvite', acceptProjectInvite);
 userRoute.post('/showInterest', addInterest);
 userRoute.get('/getUser', getUser);
 userRoute.get('/recommandUser', recommandUser);
+userRoute.get('/getFavProjects', getFavProjects);
 
 export default userRoute;
