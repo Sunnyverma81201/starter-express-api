@@ -115,7 +115,7 @@ export const projectInvite = async (req,res) => {
 }
 
 export const acceptProjectInvite = async (req,res) => {
-    let data = await InviteUser.find({user: req.body.userId});
+    let data = await InviteUser.findOne({user: req.body.userId, project: req.body.projectId});
 
     if(data == null)
         res.status(450);
@@ -123,6 +123,8 @@ export const acceptProjectInvite = async (req,res) => {
         await Project.findByIdAndUpdate(data.project, { $push: { users: req.body.userId }  });
         await User.findByIdAndUpdate(req.body.userId, { $push: { projects: data.project }  });
     }
+
+    await InviteUser.deleteOne({user: req.body.userId, project: req.body.projectId});
     res.send();
 }
 
